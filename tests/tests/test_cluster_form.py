@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import unittest
 
 from django import VERSION as DJANGO_VERSION
-import django
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from tests.models import Band, BandMember, Album, Restaurant, Article, Author, Document, Gallery, Song
@@ -272,7 +271,7 @@ class ClusterFormTest(TestCase):
                 model = Band
                 fields = ['name']
                 formsets = ['members', 'albums']
-                if django.VERSION >= (4, 2):
+                if DJANGO_VERSION >= (4, 2):
                     formfield_callback = formfield_for_dbfield
 
         form = BandFormWithFFC()
