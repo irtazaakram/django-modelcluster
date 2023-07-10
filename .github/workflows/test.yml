@@ -43,7 +43,7 @@ jobs:
             experimental: true
     services:
       postgres:
-        image: postgres:11.16
+        image: postgres:latest
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
