@@ -12,20 +12,20 @@ jobs:
     strategy:
       matrix:
         python: ["3.8", "3.9", "3.10", "3.11"]
-        # django: ["3.2", "4.1", "4.2"]
-        django: ["4.1", "4.2"]
+        # django: ["Django==3.2", "Django==4.1", "Django==4.2"]
+        django: ["Django==4.1", "Django==4.2"]
         database: ["postgresql", "sqlite3"]
         taggit: ["django-taggit>=2.1.0"]
         psycopg: ["psycopg2>=2.9.2"]
         experimental: [false]
 
-        # include:
-        #   - python: "3.10"
-        #     django: "git+https://github.com/django/django.git@main#egg=Django"
-        #     experimental: true
-        #   - python: "3.11"
-        #     django: "git+https://github.com/django/django.git@main#egg=Django"
-        #     experimental: true
+        include:
+          - python: "3.10"
+            django: "git+https://github.com/django/django.git@main#egg=Django"
+            experimental: true
+          - python: "3.11"
+            django: "git+https://github.com/django/django.git@main#egg=Django"
+            experimental: true
 
         exclude:
           - python: "3.11"
@@ -51,7 +51,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
           pip install "${{ matrix.psycopg }}"
-          pip install Django=="${{ matrix.django }}"
+          pip install "${{ matrix.django }}"
           pip install "${{ matrix.taggit }}"
       - name: Test
         run: ./runtests.py
