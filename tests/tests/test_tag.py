@@ -149,13 +149,12 @@ class TagTest(TestCase):
         mission_burrito.tags.add('burrito', 'mexican')
         form = PlaceForm(instance=mission_burrito)
         form_html = form.as_p()
+        html = '<input type="text" name="tags" value="burrito, mexican" id="id_tags">'
 
-        html = (
-            '<input type="text" name="tags" value="burrito, mexican" id="id_tags">'
-            if DJANGO_VERSION < (5, 0) else
+        if DJANGO_VERSION >= (5, 0):
             # https://docs.djangoproject.com/en/dev/releases/5.0/#forms
-            '<input type="text" name="tags" value="burrito, mexican" aria-describedby="id_tags_helptext" id="id_tags">'
-        )
+            html = '<input type="text" name="tags" value="burrito, mexican" aria-describedby="id_tags_helptext" id="id_tags">'
+
         self.assertInHTML(html, form_html)
 
     @override_settings(TAGGIT_CASE_INSENSITIVE=True)
